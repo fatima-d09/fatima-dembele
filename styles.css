@@ -1,0 +1,631 @@
+   *, *::after, *::before { box-sizing: border-box; }
+
+    :root {
+      --nav-height: 60px;
+      --black: hsl(222 35% 9%);      /* deep midnight navy */
+      --white: hsl(210 20% 97%);     /* cool off-white */
+      --content-width: 120ch;
+      --accent: hsl(42 95% 52%);     /* warm amber gold */
+      --jump:       cover 15% cover 45%;
+      --spin:       cover 15% cover 45%;
+      --flip:       cover 15% cover 45%;
+      --open:       cover 15% cover 45%;
+      --straighten: contain 25% contain 65%;
+      --zoom:       contain 25% exit -20%;
+      /* intro/pour tokens */
+      --espresso:    hsl(222 35% 9%);
+      --roast:       hsl(220 30% 14%);
+      --caramel:     hsl(42 90% 48%);
+      --gold:        hsl(42 95% 55%);
+      --cream:       hsl(42 60% 90%);
+      --ataya:       hsl(22 70% 14%);
+      --ataya-light: hsl(20 65% 22%);
+      /* Cool Cats intro brown palette */
+      --latte:    hsl(30 45% 78%);
+      --bagel:    hsl(28 52% 62%);
+      --caramel2: hsl(26 65% 44%);
+      --mocha:    hsl(22 58% 28%);
+      --roast2:   hsl(20 62% 16%);
+      --cream2:   hsl(38 70% 92%);
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Apple-style frosted nav */
+    body > #site > nav-placeholder { display: none; }
+
+    /* Apple-style header text refinement */
+    h1 span {
+      font-variant: small-caps; font-size: 0.5em;
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      opacity: 0.6;
+    }
+
+    /* original grid — cool navy-tinted lines */
+    body::before {
+      --line: color-mix(in lch, hsl(220 30% 50%) 28%, transparent);
+      --size: 60px;
+      content: '';
+      height: 100vh; width: 100vw;
+      position: fixed;
+      background:
+        linear-gradient(90deg, var(--line) 1px, transparent 1px var(--size)) 50% 50% / var(--size) var(--size),
+        linear-gradient(var(--line) 1px, transparent 1px var(--size)) 50% 50% / var(--size) var(--size);
+      mask: linear-gradient(-15deg, transparent 40%, white);
+      top: 0; transform-style: flat; pointer-events: none; z-index: -1;
+    }
+
+    h1 { 
+      font-size: clamp(2rem, 5vw + 1rem, 8rem);
+      font-family: "EB Garamond", serif;
+      line-height: 0.9; font-weight: 500;
+      translate: 0 -100%; margin: 0;
+    }
+
+    header {
+      height: 100vh; position: absolute; padding: 2rem;
+      width: 800px; max-width: calc(100% - 4rem);
+      left: 50%; top: 0; translate: -50% 0;
+      display: grid; align-content: center;
+    }
+
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0;
+      margin: -1px; overflow: hidden; clip: rect(0,0,0,0);
+      white-space: nowrap; border-width: 0;
+    }
+
+    /* ── LAPTOP ── */
+    .laptop *, .laptop *:before, .laptop *:after {
+      transform-style: preserve-3d; box-sizing: border-box;
+    }
+    .laptop {
+      height: 500vh; view-timeline: --laptop;
+      position: sticky; top: 0; z-index: 2;
+    }
+
+    /* FATIMA! sticker */
+    .shell--top .cuboid__side:nth-of-type(5):after {
+      content: "FATIMA!";
+      padding: 0.5vmin 0.9vmin; font-size: 2.6vmin;
+      font-family: sans-serif; font-weight: bold;
+      position: absolute; color: hsl(0 0% 95%);
+      background: var(--black);
+      top: 60%; left: 65%; rotate: 140deg;
+      border-radius: 2px; white-space: nowrap;
+    }
+
+    .laptop section {
+      width: 100%; position: sticky; top: 0;
+      display: grid; place-items: center;
+      overflow: hidden; height: 100vh;
+    }
+    .laptop .scene {
+      transform: rotateX(-24deg) rotateY(-32deg) rotateX(90deg) translate3d(0,0,-20vmin);
+    }
+
+    main { view-timeline: --main; }
+
+    .scene__jump {
+      animation: book-jump both ease-in-out;
+      animation-timeline: --laptop; animation-range: var(--jump);
+    }
+    @keyframes book-jump { 50% { transform: translate3d(0,0,40vmin); } }
+
+    .scene__spin {
+      animation: book-spin both ease-in-out;
+      animation-timeline: --laptop; animation-range: var(--spin);
+    }
+    .scene__flip {
+      animation: book-flip both ease-in-out;
+      animation-timeline: --laptop; animation-range: var(--flip);
+    }
+    @keyframes book-flip {
+      0%, 20%   { transform: rotateX(0deg); }
+      80%, 100% { transform: rotateX(360deg); }
+    }
+    @keyframes book-spin { to { transform: rotateZ(-360deg); } }
+
+    .jbook {
+      width: 30vmin; aspect-ratio: 16 / 12;
+      position: relative; transform: translate3d(0,0,2vmin);
+    }
+    .scroll-section.laptop { padding: 0; }
+
+    /* espresso cup on screen face (replaces screen-bear) */
+    .screen-espresso {
+      position: absolute; width: 25%;
+      top: 50%; left: 50%; translate: -50% -50%;
+      rotate: 180deg;
+    }
+    .screen-espresso .foam-top {
+      transform-box: fill-box; transform-origin: 50% 50%;
+      animation: blink 6s -2s infinite;
+    }
+
+    .laptop-keyboard {
+      width: 90%; position: absolute;
+      top: 50%; left: 50%; translate: -50% -80%;
+    }
+
+    .scene__shadow { position: relative; }
+    .scene__shadow:after {
+      background: hsl(0 0% 0% / 0.5);
+      content: ""; position: absolute; inset: 5%;
+      filter: blur(10px);
+      animation: shadow-in-out both linear;
+      animation-timeline: --laptop; animation-range: var(--jump);
+    }
+    @keyframes shadow-in-out {
+      0%, 5%, 95%, 100% { opacity: 1; }
+      35%, 65% { opacity: 0; }
+    }
+
+    .shell--bottom .cuboid__side:nth-of-type(6) { --b: 0.8; }
+    .shell--bottom .cuboid__side:nth-of-type(2):after {
+      content: ""; position: absolute; width: 50%; aspect-ratio: 1/3;
+      background: hsl(0 0% 55%); left: 50%; top: 10%; translate: -50% 0;
+    }
+    .shell--bottom:after {
+      content: ""; width: 32%; aspect-ratio: 4/3;
+      background: hsl(0 0% 62%);
+      position: absolute; bottom: 5%; left: 50%;
+      translate: -50% 0; border-radius: 0.5vmin;
+    }
+
+    /* espresso cup on back of lid (replaces shell-bear) */
+    .shell-espresso {
+      width: 20%; position: absolute;
+      top: 50%; left: 50%; translate: -50% -50%; rotate: 180deg;
+    }
+
+    .scene {
+      animation: scale-to-view both linear;
+      animation-timeline: --laptop; animation-range: var(--straighten);
+      transform: translate3d(0,0,100vmin);
+    }
+    @keyframes scale-to-view {
+      0%  { transform: rotateX(-24deg) rotateY(-32deg) rotateX(90deg) translate3d(0,0,-20vmin); }
+      to  { transform: rotateX(0) rotateY(0) rotateX(90deg) translate3d(0,0,-12vmin); }
+    }
+    .scene__zoom {
+      animation: scene-zoom both linear;
+      animation-timeline: --laptop; animation-range: var(--zoom);
+    }
+    @keyframes scene-zoom { 0% { scale: 1; } to { scale: 9; } }
+
+    .shell { position: absolute; inset: 0; }
+
+    .shell--top {
+      --depth: 2; --color: hsl(0 0% 72%);
+      background: hsl(0 0% 78%);
+      transform: rotateX(0deg); transform-origin: 50% 0;
+      animation: book-open-top both linear;
+      animation-timeline: --laptop; animation-range: var(--open);
+    }
+    .shell--top:after {
+      content: ""; position: absolute; inset: 0;
+      border: 1vmin solid hsl(0 0% 60%);
+    }
+    @keyframes book-open-top {
+      0%, 30%   { transform: rotateX(0deg); }
+      40%       { transform: rotateX(120deg); }
+      75%, 100% { transform: rotateX(90deg); }
+    }
+    @keyframes book-open-bottom {
+      0%, 45% { transform: rotateX(0deg); }
+      65%     { transform: rotateX(50deg); }
+      100%    { transform: rotateX(0deg); }
+    }
+    .shell--bottom {
+      --depth: 2; --color: hsl(0 0% 68%);
+      background: hsl(0 0% 72%); transform-origin: 50% 0;
+      animation: book-open-bottom both linear;
+      animation-timeline: --laptop; animation-range: var(--open);
+    }
+    .shell--top  .cuboid { transform: translate3d(0,0,calc(1vmin + 1px)); }
+    .shell--bottom .cuboid { transform: translate3d(0,0,calc(-1vmin - 1px)); }
+
+    /* ── CUBOID BOILERPLATE ── */
+    .cuboid { width: 100%; height: 100%; position: relative; }
+    .cuboid__side { background: var(--color); filter: brightness(var(--b,1)); position: absolute; }
+    .cuboid__side:nth-of-type(1) { --b:1.1; height:calc(var(--depth,20)*1vmin); width:100%; top:0; transform:translate(0,-50%) rotateX(90deg); }
+    .cuboid__side:nth-of-type(2) { --b:0.9; height:100%; width:calc(var(--depth,20)*1vmin); top:50%; right:0; transform:translate(50%,-50%) rotateY(90deg); }
+    .cuboid__side:nth-of-type(3) { --b:0.5; width:100%; height:calc(var(--depth,20)*1vmin); bottom:0; transform:translate(0%,50%) rotateX(90deg); }
+    .cuboid__side:nth-of-type(4) { --b:1; height:100%; width:calc(var(--depth,20)*1vmin); left:0; top:50%; transform:translate(-50%,-50%) rotateY(90deg); }
+    .cuboid__side:nth-of-type(5) { --b:0.8; height:100%; width:100%; transform:translate3d(0,0,calc(var(--depth,20)*0.5vmin)); top:0; left:0; }
+    .cuboid__side:nth-of-type(6) { --b:1.2; height:100%; width:100%; transform:translate3d(0,0,calc(var(--depth,20)*-0.5vmin)) rotateY(180deg); top:0; left:0; }
+
+    @keyframes blink {
+      0%, 46%, 48%, 50%, 100% { scale: 1 1; }
+      47%, 49% { scale: 1 0.01; }
+    }
+
+    .scroll-icon {
+      height: 30px; position: fixed; bottom: 2rem; right: 2rem;
+      color: var(--caramel); opacity: 0.5; overflow: visible !important;
+      animation: fade-away both linear;
+      animation-timeline: scroll(root); animation-range: 50px 100px;
+    }
+    @keyframes fade-away { to { translate: 0 -100%; opacity: 0; } }
+    .scroll-icon path { animation: active 4s infinite ease-in-out; transform-box: fill-box; transform-origin: center; }
+    @keyframes active {
+      0%, 20%, 30%, 40%, 100% { translate: 0 0; }
+      25%, 35% { translate: 0 -50%; }
+    }
+
+    /* ════════════════════════════════════════
+       COOL CATS INTRO — warm layered browns
+    ════════════════════════════════════════ */
+
+    #intro {
+      position: fixed; inset: 0; z-index: 9000;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      background: var(--roast2);
+      overflow: hidden;
+      transition: opacity 0.7s ease, visibility 0.7s;
+    }
+    #intro.out { opacity: 0; visibility: hidden; pointer-events: none; }
+
+    /* Big chunky background wordmark à la Cool Cats */
+    #intro::before {
+      content: 'ATAYA';
+      position: absolute;
+      font-family: 'Syne', 'Inter', sans-serif;
+      font-weight: 800;
+      font-size: clamp(18vw, 28vw, 36vw);
+      color: var(--mocha);
+      opacity: 0.35;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      top: 50%; left: 50%;
+      translate: -50% -50%;
+      pointer-events: none;
+      user-select: none;
+      white-space: nowrap;
+    }
+
+    /* Wobbly stripe bands — layered brown feel */
+    #intro::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        -8deg,
+        transparent 0px,
+        transparent 60px,
+        hsl(24 55% 22% / 0.18) 60px,
+        hsl(24 55% 22% / 0.18) 62px
+      );
+      pointer-events: none;
+    }
+
+    /* wooden counter — bagel brown */
+    .intro-counter {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 34%;
+      background: linear-gradient(180deg, var(--bagel) 0%, var(--caramel2) 40%, var(--mocha) 100%);
+      border-top: 5px solid var(--latte);
+      z-index: 1;
+    }
+    .intro-counter::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 8px;
+      background: linear-gradient(90deg, transparent, hsl(35 70% 85% / 0.5) 30%, hsl(35 70% 85% / 0.7) 50%, hsl(35 70% 85% / 0.5) 70%, transparent);
+    }
+    .intro-counter::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        92deg,
+        transparent 0, transparent 45px,
+        hsl(22 50% 20% / 0.2) 45px, hsl(22 50% 20% / 0.2) 47px
+      );
+    }
+
+    /* Main content sits above the bg elements */
+    .barista-area {
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 1.4rem;
+      margin-bottom: 2.8rem;
+      text-align: center;
+    }
+
+    /* Heading — EB Garamond, elegant not wide */
+    .intro-heading {
+      font-family: "EB Garamond", serif;
+      font-weight: 500;
+      font-style: italic;
+      font-size: clamp(2.6rem, 6vw, 4.8rem);
+      line-height: 1.05;
+      color: var(--cream2);
+      letter-spacing: 0.01em;
+      text-align: center;
+      animation: pop-in 0.5s 0.1s both cubic-bezier(0.34,1.56,0.64,1);
+      max-width: min(520px, 88vw);
+    }
+    .intro-heading em { display: none; }
+
+    /* Thick chunky speech bubble */
+    .speech-bubble {
+      background: var(--latte);
+      border: 4px solid var(--mocha);
+      border-radius: 20px 20px 20px 6px;
+      padding: 1rem 1.6rem;
+      max-width: min(380px, 85vw);
+      box-shadow: 6px 6px 0px var(--mocha);
+      animation: pop-in 0.5s 0.25s both cubic-bezier(0.34,1.56,0.64,1);
+      position: relative;
+    }
+    .speech-bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -18px; left: 18px;
+      border: 9px solid transparent;
+      border-top-color: var(--mocha);
+      border-bottom: 0;
+    }
+    .speech-bubble::before {
+      content: '';
+      position: absolute;
+      bottom: -13px; left: 21px;
+      border: 7px solid transparent;
+      border-top-color: var(--latte);
+      border-bottom: 0;
+      z-index: 1;
+    }
+    .speech-bubble p {
+      font-family: "EB Garamond", serif;
+      font-size: clamp(1rem, 2.2vw, 1.15rem);
+      font-weight: 500;
+      color: var(--mocha);
+      line-height: 1.45;
+      letter-spacing: 0.01em;
+    }
+    .speech-bubble strong { color: var(--roast2); font-weight: 700; }
+
+    /* Barista icon removed — replaced by heading */
+    .barista-icon { display: none; }
+
+    @keyframes pop-in {
+      from { opacity: 0; transform: scale(0.82) translateY(8px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    /* Chunky pill button */
+    .cta-btn {
+      padding: 1rem 2.4rem;
+      background: var(--latte);
+      color: var(--mocha);
+      border: 4px solid var(--mocha);
+      border-radius: 100px;
+      font-family: 'Syne', 'Inter', sans-serif;
+      font-size: clamp(0.85rem, 2vw, 1rem);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      box-shadow: 5px 5px 0px var(--mocha);
+      transition: transform .15s, box-shadow .15s, background .15s;
+      touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+      animation: pop-in 0.5s 0.45s both cubic-bezier(0.34,1.56,0.64,1);
+      display: flex; align-items: center; gap: 0.6rem;
+      position: relative; z-index: 2;
+    }
+    .cta-btn:hover, .cta-btn:focus-visible {
+      background: var(--bagel);
+      transform: translate(-2px, -2px);
+      box-shadow: 7px 7px 0px var(--mocha);
+    }
+    .cta-btn:active {
+      transform: translate(3px, 3px);
+      box-shadow: 2px 2px 0px var(--mocha);
+    }
+
+    /* ── POUR SCENE — same warm brown world ── */
+    #pour-scene {
+      position: fixed; inset: 0; z-index: 9100;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      background: var(--roast2);
+      overflow: hidden;
+      opacity: 0; visibility: hidden; transition: opacity 0.5s;
+    }
+    #pour-scene::before {
+      content: 'POUR';
+      position: absolute;
+      font-family: 'Syne', 'Inter', sans-serif;
+      font-weight: 800;
+      font-size: clamp(22vw, 32vw, 42vw);
+      color: var(--mocha);
+      opacity: 0.3;
+      letter-spacing: -0.04em;
+      top: 50%; left: 50%;
+      translate: -50% -50%;
+      pointer-events: none; user-select: none;
+    }
+    #pour-scene::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        -8deg,
+        transparent 0px, transparent 60px,
+        hsl(24 55% 22% / 0.15) 60px, hsl(24 55% 22% / 0.15) 62px
+      );
+      pointer-events: none;
+    }
+    #pour-scene.visible { opacity: 1; visibility: visible; }
+
+    .pour-label {
+      font-family: 'Syne', 'Inter', sans-serif;
+      font-weight: 800;
+      font-size: clamp(1rem, 2.8vw, 1.5rem);
+      color: var(--latte);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 2.5rem;
+      opacity: 0; transform: translateY(6px);
+      transition: opacity 0.6s 0.3s, transform 0.6s 0.3s;
+      position: relative; z-index: 2;
+    }
+    #pour-scene.visible .pour-label { opacity: 1; transform: translateY(0); }
+
+    .glass-scene {
+      position: relative;
+      width: clamp(120px, 26vmin, 180px);
+      z-index: 2;
+    }
+    .cup-svg { width: 100%; display: block; filter: drop-shadow(0 12px 32px hsl(0 0% 0% / 0.45)); }
+
+    /* Tea fill — rises higher, less empty space at top */
+    .tea-fill {
+      position: absolute;
+      left: 10%; right: 10%; bottom: 9.5%;
+      height: 0;
+      background: linear-gradient(180deg,
+        hsl(20 65% 26%) 0%,
+        hsl(18 70% 18%) 50%,
+        hsl(15 72% 12%) 100%
+      );
+      transition: height 2.2s 0.4s cubic-bezier(0.12, 0, 0.3, 1);
+      border-radius: 0 0 4px 4px;
+      pointer-events: none;
+    }
+    #pour-scene.pouring .tea-fill { height: 78%; }
+
+    /* Foam — sits tightly on tea surface */
+    .foam {
+      position: absolute; left: 10%; right: 10%; height: 16px;
+      bottom: calc(9.5% + 78% - 6px);
+      background: radial-gradient(ellipse at 50% 55%,
+        hsl(32 55% 88%) 0%,
+        hsl(28 48% 76%) 45%,
+        hsl(24 45% 64%) 100%
+      );
+      border-radius: 50% 50% 25% 25%; opacity: 0;
+      transition: opacity 0.6s 2.5s, bottom 2.2s 0.4s cubic-bezier(0.12,0,0.3,1);
+      pointer-events: none; z-index: 2;
+    }
+    #pour-scene.pouring .foam { opacity: 1; }
+    .foam::before, .foam::after {
+      content: ''; position: absolute; border-radius: 50%;
+      background: hsl(33 45% 85%);
+    }
+    .foam::before { width: 20px; height: 8px; top: -3px; left: 15%; }
+    .foam::after  { width: 13px; height: 6px; top: -2px; left: 52%; }
+
+    /* Steam wisps */
+    .steam {
+      position: absolute; bottom: calc(9.5% + 78% + 16px);
+      left: 50%; transform: translateX(-50%);
+      display: flex; gap: 12px; opacity: 0; transition: opacity 0.6s 3s;
+      z-index: 3; pointer-events: none;
+    }
+    #pour-scene.pouring .steam { opacity: 0.8; }
+    .steam span {
+      display: block; width: 3px; border-radius: 2px;
+      background: linear-gradient(180deg, transparent, var(--latte));
+      transform-origin: bottom center;
+    }
+    .steam span:nth-child(1) { height: 28px; animation: wisp 2.1s 3.1s infinite ease-in-out; }
+    .steam span:nth-child(2) { height: 22px; animation: wisp 2.1s 3.4s infinite ease-in-out; }
+    .steam span:nth-child(3) { height: 25px; animation: wisp 2.1s 3.7s infinite ease-in-out; }
+    @keyframes wisp {
+      0%   { transform: scaleX(1) translateY(0); opacity: 0.9; }
+      50%  { transform: scaleX(1.6) translateY(-10px); opacity: 0.4; }
+      100% { transform: scaleX(0.7) translateY(-22px); opacity: 0; }
+    }
+
+    /* Falling tea stream from top of screen */
+    .tea-drop {
+      position: absolute;
+      top: -60px;
+      left: 50%;
+      translate: -50% 0;
+      width: 10px;
+      border-radius: 5px;
+      background: linear-gradient(180deg, hsl(20 65% 26%), hsl(15 70% 15%));
+      height: 0;
+      opacity: 0;
+      z-index: 2;
+      pointer-events: none;
+    }
+    #pour-scene.pouring .tea-drop {
+      animation: tea-fall 2.4s 0.1s ease-in forwards;
+    }
+    @keyframes tea-fall {
+      0%   { top: -60px; height: 0;    opacity: 0; }
+      5%   { opacity: 1; height: 40px; }
+      15%  { top: -30px; height: 60px; opacity: 1; }
+      /* stream reaches glass top and stays */
+      35%  { opacity: 1; height: 55vh; top: -30px; }
+      78%  { opacity: 1; height: 55vh; top: -30px; }
+      90%  { height: 20px; opacity: 0.5; top: -30px; }
+      100% { height: 0;    opacity: 0; top: -30px; }
+    }
+
+    /* Chunky enter button */
+    .enter-btn {
+      margin-top: 2.8rem;
+      padding: 0.95rem 2.4rem;
+      background: var(--latte);
+      color: var(--mocha);
+      border: 4px solid var(--mocha);
+      border-radius: 100px;
+      font-family: 'Syne', 'Inter', sans-serif;
+      font-size: clamp(0.8rem, 1.8vw, 0.95rem);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      cursor: pointer;
+      box-shadow: 5px 5px 0px var(--mocha);
+      transition: transform .15s, box-shadow .15s, background .15s;
+      touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+      display: none;
+      position: relative; z-index: 2;
+    }
+    .enter-btn.show { display: block; animation: pop-in 0.5s both cubic-bezier(0.34,1.56,0.64,1); }
+    .enter-btn:hover, .enter-btn:focus-visible {
+      background: var(--bagel);
+      transform: translate(-2px, -2px);
+      box-shadow: 7px 7px 0px var(--mocha);
+    }
+    .enter-btn:active {
+      transform: translate(3px, 3px);
+      box-shadow: 2px 2px 0px var(--mocha);
+    }
+
+    /* ══════════════════════════════════
+       SCREEN MUG — fade in/out + dark transition
+    ══════════════════════════════════ */
+
+    /* Mug fades in and out gently on the screen */
+    @keyframes screen-fade-pulse {
+      0%   { opacity: 1; }
+      40%  { opacity: 0.15; }
+      100% { opacity: 1; }
+    }
+    .screen-espresso.fading {
+      animation: screen-fade-pulse 1.6s ease-in-out 3 forwards;
+    }
+
+    /* Dark grey overlay that covers the whole screen */
+    #screen-dark {
+      position: fixed; inset: 0; z-index: 9300;
+      background: hsl(0 0% 14%);
+      opacity: 0; visibility: hidden;
+      transition: opacity 1.2s ease;
+      pointer-events: none;
+    }
+    #screen-dark.active {
+      opacity: 1; visibility: visible;
+    }
+      40%  { opacity: 1; }
+      100% { transform: scale(80);   opacity: 1; }
+    }
